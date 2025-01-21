@@ -1,0 +1,17 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092  # Substitua pelo endereço do seu Kafka
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      retries: 3
+      properties:
+        linger.ms: 5       # Para melhorar o throughput
+        batch.size: 16384  # Tamanho do lote em bytes
+        acks: all          # Confirmação total
+    topic-name: pedidos-diarios  # Nome do tópico para pedidos
+
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: grupo-consumidor-pedidos
